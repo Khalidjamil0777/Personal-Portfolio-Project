@@ -70,18 +70,15 @@ body {
 }
 
 .profile-image {
-    width: 120px;
-    height: 120px;
-    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    border: 4px solid var(--white);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
 }
 
 .social-links .social-link {
@@ -382,6 +379,19 @@ section {
     }
 }
 
+/* Typing Effect */
+#typingName::after {
+    content: '|';
+    animation: blink 1s steps(1) infinite;
+    margin-left: 2px;
+    color: var(--primary-color);
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-section {
@@ -409,6 +419,16 @@ section {
     .social-links .social-link {
         width: 45px;
         height: 45px;
+    }
+    
+    .col-lg-4 .d-flex {
+        flex-direction: row !important;
+        overflow-x: auto;
+        gap: 1rem;
+    }
+    .certification-item {
+        min-width: 260px;
+        flex: 0 0 auto;
     }
 }
 
