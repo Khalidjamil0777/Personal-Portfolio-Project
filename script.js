@@ -1,311 +1,1035 @@
-// Portfolio JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all functionality
-    initializeNavigation();
-    initializeProjectFilters();
-    initializeContactForm();
-    initializeSkillBars();
-    initializeScrollAnimations();
-});
-
-// Navigation functionality
-function initializeNavigation() {
-    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-    const sections = document.querySelectorAll('section[id]');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khalid Jamil - Full-Stack Developer Portfolio</title>
     
-    // Smooth scrolling for navigation links
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Khalid Jamil - Aspiring Full-Stack Developer (MERN) | BCA Student with hands-on project experience seeking opportunities in innovative web applications">
+    <meta name="keywords" content="Khalid Jamil, Full-Stack Developer, MERN Stack, Web Developer, Portfolio, New Delhi">
+    <meta name="author" content="Khalid Jamil">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Khalid Jamil - Aspiring Full-Stack Developer (MERN)">
+    <meta property="og:description" content="BCA Student with hands-on project experience seeking opportunities in innovative web applications">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header class="navbar navbar-expand-lg navbar-light fixed-top bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4 text-dark" href="#home">Khalid Jamil</a>
             
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80; // Account for fixed header
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                const navbarCollapse = document.querySelector('.navbar-collapse');
-                if (navbarCollapse.classList.contains('show')) {
-                    const toggleButton = document.querySelector('.navbar-toggler');
-                    toggleButton.click();
-                }
-            }
-        });
-    });
-    
-    // Active navigation highlighting
-    function updateActiveNavigation() {
-        let current = 'home';
-        const scrollPosition = window.scrollY + 100;
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i data-lucide="menu"></i>
+            </button>
             
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                current = sectionId;
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    }
-    
-    // Update active navigation on scroll
-    window.addEventListener('scroll', updateActiveNavigation);
-    updateActiveNavigation(); // Initial call
-}
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <nav class="navbar-nav ms-auto">
+                    <a class="nav-link active" href="#home">Home</a>
+                    <a class="nav-link" href="#about">About</a>
+                    <a class="nav-link" href="#skills">Skills</a>
+                    <a class="nav-link" href="#projects">Projects</a>
+                    <a class="nav-link" href="#education">Education</a>
+                    <a class="nav-link" href="#contact">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-// Project filtering functionality
-function initializeProjectFilters() {
-    const filterButtons = document.querySelectorAll('input[name="projectFilter"]');
-    const projectItems = document.querySelectorAll('.project-item');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('change', function() {
-            const filterValue = this.id;
-            
-            projectItems.forEach(item => {
-                if (filterValue === 'all' || item.dataset.category === filterValue) {
-                    item.style.display = 'block';
-                    // Add fade-in animation
-                    item.style.opacity = '0';
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transition = 'opacity 0.3s ease';
-                    }, 100);
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-    });
-}
+    <!-- Hero Section -->
+    <section id="home" class="hero-section d-flex align-items-center min-vh-100 bg-light">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Profile Image Placeholder -->
+                    <div class="profile-image mx-auto mb-4">
+                        <span class="initials">KJ</span>
+                    </div>
+                    
+                    <h1 class="display-4 fw-bold mb-3">
+                        Hi, I'm <span class="text-primary">Khalid Jamil</span>
+                    </h1>
+                    
+                    <p class="lead text-muted mb-4">Aspiring Full-Stack Developer (MERN)</p>
+                    
+                    <p class="fs-5 text-secondary mb-5 mx-auto" style="max-width: 600px;">
+                        Aspiring Full-Stack Developer specializing in MERN with hands-on project experience. 
+                        Seeking opportunities to contribute to innovative web applications while advancing technical expertise in modern development frameworks.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mb-5">
+                        <a href="Khalid_Jamil_Resume.pdf" class="btn btn-primary btn-lg px-4">
+                            <i data-lucide="download" class="me-2"></i>Download Resume
+                        </a>
+                        <a href="#about" class="btn btn-outline-primary btn-lg px-4">Learn More</a>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="social-links d-flex justify-content-center gap-3 mb-5">
+                        <a href="https://github.com/Khalidjamil0777" class="social-link" target="_blank" rel="noopener">
+                          <i data-lucide="github"></i>
+                         </a>
+                        <a href="https://www.linkedin.com/in/khalidjamil0777" class="social-link" target="_blank" rel="noopener">
+                           <i data-lucide="linkedin"></i>
+                         </a>
+                        <a href="mailto:khalidjamil0777@gmail.com" class="social-link">
+                           <i data-lucide="mail"></i>
+                         </a>
+                    </div>   
+                    
+                    <!-- Scroll Indicator -->
+                    <a href="#about" class="scroll-indicator">
+                        <i data-lucide="chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-// Contact form functionality
-function initializeContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const formObject = {};
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
-            
-            // Validate form
-            if (validateForm(formObject)) {
-                // Simulate form submission
-                showFormSuccess();
-                this.reset();
-            }
-        });
-    }
-}
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Section Header -->
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold mb-3">About Me</h2>
+                        <div class="section-divider mx-auto mb-4"></div>
+                        <p class="lead text-muted">
+                            A passionate BCA student with a strong foundation in web technologies, 
+                            eager to build scalable applications and contribute to innovative projects.
+                        </p>
+                    </div>
 
-// Form validation
-function validateForm(data) {
-    const { name, email, subject, message } = data;
-    
-    // Basic validation
-    if (!name || name.trim().length < 2) {
-        showFormError('Please enter a valid name (at least 2 characters)');
-        return false;
-    }
-    
-    if (!email || !isValidEmail(email)) {
-        showFormError('Please enter a valid email address');
-        return false;
-    }
-    
-    if (!subject || subject.trim().length < 3) {
-        showFormError('Please enter a subject (at least 3 characters)');
-        return false;
-    }
-    
-    if (!message || message.trim().length < 10) {
-        showFormError('Please enter a message (at least 10 characters)');
-        return false;
-    }
-    
-    return true;
-}
+                    <div class="row g-4">
+                        <!-- Left Content -->
+                        <div class="col-lg-6">
+                            <h3 class="h4 fw-bold mb-4">Career Objective</h3>
+                            <p class="text-muted mb-4">
+                                Aspiring Full-Stack Developer specializing in MERN with hands-on project experience. 
+                                Seeking opportunities to contribute to innovative web applications in a growth-oriented organization 
+                                while advancing technical expertise in modern development frameworks and building scalable solutions.
+                            </p>
+                            
+                            <h3 class="h4 fw-bold mb-4">Key Strengths</h3>
+                            <ul class="list-unstyled">
+                                <li class="d-flex align-items-start mb-2">
+                                    <span class="text-primary me-2">•</span>
+                                    Quick learner with strong problem-solving skills
+                                </li>
+                                <li class="d-flex align-items-start mb-2">
+                                    <span class="text-primary me-2">•</span>
+                                    Passionate about web technologies and full-stack development
+                                </li>
+                                <li class="d-flex align-items-start mb-2">
+                                    <span class="text-primary me-2">•</span>
+                                    Ability to adapt to new tools and frameworks
+                                </li>
+                                <li class="d-flex align-items-start mb-2">
+                                    <span class="text-primary me-2">•</span>
+                                    Skilled at leveraging AI tools for coding and productivity
+                                </li>
+                            </ul>
+                        </div>
 
-// Email validation helper
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
+                        <!-- Right Content - Highlights -->
+                        <div class="col-lg-6">
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <div class="highlight-card p-4 h-100">
+                                        <i data-lucide="code" class="text-primary mb-3"></i>
+                                        <h5 class="fw-semibold mb-3">Web Development</h5>
+                                        <p class="text-muted small">Hands-on experience with HTML5, CSS3, Bootstrap, and JavaScript</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="highlight-card p-4 h-100">
+                                        <i data-lucide="database" class="text-primary mb-3"></i>
+                                        <h5 class="fw-semibold mb-3">MERN Stack</h5>
+                                        <p class="text-muted small">Currently learning MongoDB, Express.js, React.js, and Node.js</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="highlight-card p-4 h-100">
+                                        <i data-lucide="globe" class="text-primary mb-3"></i>
+                                        <h5 class="fw-semibold mb-3">Multiple Projects</h5>
+                                        <p class="text-muted small">Built portfolio websites, landing pages, and clone applications</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="highlight-card p-4 h-100">
+                                        <i data-lucide="zap" class="text-primary mb-3"></i>
+                                        <h5 class="fw-semibold mb-3">AI-Powered Development</h5>
+                                        <p class="text-muted small">Skilled in leveraging ChatGPT and GitHub Copilot for efficient coding</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-// Show form success message
-function showFormSuccess() {
-    // Create success message
-    const successMessage = document.createElement('div');
-    successMessage.className = 'alert alert-success alert-dismissible fade show mt-3';
-    successMessage.innerHTML = `
-        <strong>Success!</strong> Thank you for your message! I'll get back to you soon.
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
-    
-    // Insert after form
-    const form = document.getElementById('contactForm');
-    form.parentNode.insertBefore(successMessage, form.nextSibling);
-    
-    // Auto-remove after 5 seconds
-    setTimeout(() => {
-        if (successMessage.parentNode) {
-            successMessage.remove();
-        }
-    }, 5000);
-}
+    <!-- Skills Section -->
+    <section id="skills" class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Section Header -->
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold mb-3">Technical Skills</h2>
+                        <div class="section-divider mx-auto mb-4"></div>
+                        <p class="lead text-muted">
+                            A comprehensive overview of my technical expertise and proficiency levels
+                        </p>
+                    </div>
 
-// Show form error message
-function showFormError(message) {
-    // Remove existing error messages
-    const existingErrors = document.querySelectorAll('.alert-danger');
-    existingErrors.forEach(error => error.remove());
-    
-    // Create error message
-    const errorMessage = document.createElement('div');
-    errorMessage.className = 'alert alert-danger alert-dismissible fade show mt-3';
-    errorMessage.innerHTML = `
-        <strong>Error!</strong> ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
-    
-    // Insert after form
-    const form = document.getElementById('contactForm');
-    form.parentNode.insertBefore(errorMessage, form.nextSibling);
-    
-    // Auto-remove after 5 seconds
-    setTimeout(() => {
-        if (errorMessage.parentNode) {
-            errorMessage.remove();
-        }
-    }, 5000);
-}
+                    <!-- Skills Grid -->
+                    <div class="row g-4 mb-5">
+                        <!-- Frontend Development -->
+                        <div class="col-lg-6">
+                            <div class="skill-category p-4 bg-white rounded shadow-sm h-100">
+                                <div class="d-flex align-items-center mb-4">
+                                    <i data-lucide="globe" class="text-primary me-3"></i>
+                                    <h4 class="fw-bold mb-0">Frontend Development</h4>
+                                </div>
+                                <div class="skills-list">
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">HTML5</span>
+                                            <span class="text-muted">80%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">CSS3</span>
+                                            <span class="text-muted">70%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 70%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">JavaScript</span>
+                                            <span class="text-muted">60%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">Bootstrap</span>
+                                            <span class="text-muted">85%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">React.js</span>
+                                            <span class="text-muted">10%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 10%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-// Animate skill bars when they come into view
-function initializeSkillBars() {
-    const skillBars = document.querySelectorAll('.progress-bar');
-    
-    const observerOptions = {
-        threshold: 0.5,
-        rootMargin: '0px 0px -100px 0px'
-    };
-    
-    const skillObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const progressBar = entry.target;
-                const width = progressBar.style.width;
-                
-                // Reset width and animate
-                progressBar.style.width = '0%';
-                setTimeout(() => {
-                    progressBar.style.width = width;
-                }, 100);
-            }
-        });
-    }, observerOptions);
-    
-    skillBars.forEach(bar => {
-        skillObserver.observe(bar);
-    });
-}
+                        <!-- Backend Development -->
+                        <div class="col-lg-6">
+                            <div class="skill-category p-4 bg-white rounded shadow-sm h-100">
+                                <div class="d-flex align-items-center mb-4">
+                                    <i data-lucide="database" class="text-primary me-3"></i>
+                                    <h4 class="fw-bold mb-0">Backend Development</h4>
+                                </div>
+                                <div class="skills-list">
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">Node.js</span>
+                                            <span class="text-muted">25%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 25%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">Express.js</span>
+                                            <span class="text-muted">20%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 20%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">MongoDB</span>
+                                            <span class="text-muted">20%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 20%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">MySQL</span>
+                                            <span class="text-muted">50%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 50%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-// Initialize scroll animations
-function initializeScrollAnimations() {
-    const animatedElements = document.querySelectorAll('.highlight-card, .skill-category, .project-card, .education-item, .certification-item');
+                        <!-- Programming Languages -->
+                        <div class="col-lg-6">
+                            <div class="skill-category p-4 bg-white rounded shadow-sm h-100">
+                                <div class="d-flex align-items-center mb-4">
+                                    <i data-lucide="code" class="text-primary me-3"></i>
+                                    <h4 class="fw-bold mb-0">Programming Languages</h4>
+                                </div>
+                                <div class="skills-list">
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">JavaScript</span>
+                                            <span class="text-muted">60%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">Java</span>
+                                            <span class="text-muted">55%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 55%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">C</span>
+                                            <span class="text-muted">40%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 40%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">C++</span>
+                                            <span class="text-muted">45%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 45%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tools & Technologies -->
+                        <div class="col-lg-6">
+                            <div class="skill-category p-4 bg-white rounded shadow-sm h-100">
+                                <div class="d-flex align-items-center mb-4">
+                                    <i data-lucide="settings" class="text-primary me-3"></i>
+                                    <h4 class="fw-bold mb-0">Tools & Technologies</h4>
+                                </div>
+                                <div class="skills-list">
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">VS Code</span>
+                                            <span class="text-muted">70%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 70%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">GitHub</span>
+                                            <span class="text-muted">60%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">Git</span>
+                                            <span class="text-muted">50%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 50%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="fw-medium">Responsive Design</span>
+                                            <span class="text-muted">80%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-primary" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Tools Section -->
+                    <div class="text-center">
+                        <div class="ai-tools-section p-4 bg-white rounded shadow-sm">
+                            <h4 class="fw-bold mb-4">AI-Assisted Development</h4>
+                            <div class="d-flex justify-content-center flex-wrap gap-3 mb-3">
+                                <div class="ai-tool-badge">
+                                    <i data-lucide="bot" class="text-primary me-2"></i>
+                                    <span class="fw-medium">ChatGPT</span>
+                                </div>
+                                <div class="ai-tool-badge">
+                                    <i data-lucide="github" class="text-primary me-2"></i>
+                                    <span class="fw-medium">GitHub Copilot</span>
+                                </div>
+                            </div>
+                            <p class="text-muted mb-0">
+                                Leveraging AI tools for coding assistance, debugging, and accelerated learning
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Section Header -->
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold mb-3">My Projects</h2>
+                        <div class="section-divider mx-auto mb-4"></div>
+                        <p class="lead text-muted">
+                            A showcase of my web development projects, from personal portfolios to complex application clones
+                        </p>
+                    </div>
+
+                    <!-- Filter Buttons -->
+                    <div class="text-center mb-5">
+                        <div class="btn-group project-filters" role="group">
+                            <input type="radio" class="btn-check" name="projectFilter" id="all" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="all">
+                                <i data-lucide="globe" class="me-2"></i>All Projects
+                            </label>
+
+                            <input type="radio" class="btn-check" name="projectFilter" id="web" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="web">
+                                <i data-lucide="code" class="me-2"></i>Web Development
+                            </label>
+
+                            <input type="radio" class="btn-check" name="projectFilter" id="clone" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="clone">
+                                <i data-lucide="smartphone" class="me-2"></i>Clone Projects
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Projects Grid -->
+                    <div class="row g-4" id="projectsGrid">
+                        <!-- Project 1: Personal Portfolio -->
+                        <div class="col-lg-6 project-item" data-category="web">
+                            <div class="project-card bg-white rounded shadow-sm overflow-hidden h-100">
+                                <div class="project-image bg-light d-flex align-items-center justify-content-center">
+                                    <span class="text-muted fs-5">Project Preview</span>
+                                </div>
+                                <div class="p-4">
+                                    <h4 class="fw-bold mb-3">Personal Portfolio Website</h4>
+                                    <p class="text-muted mb-4">
+                                        A responsive personal portfolio built with HTML5, CSS3, Bootstrap, and JavaScript 
+                                        to showcase skills and projects with modern design and smooth animations.
+                                    </p>
+                                    
+                                    <!-- Technologies -->
+                                    <div class="mb-4">
+                                        <span class="badge bg-primary me-2 mb-2">HTML5</span>
+                                        <span class="badge bg-primary me-2 mb-2">CSS3</span>
+                                        <span class="badge bg-primary me-2 mb-2">Bootstrap</span>
+                                        <span class="badge bg-primary me-2 mb-2">JavaScript</span>
+                                    </div>
+                                    
+                                    <!-- Features -->
+                                    <div class="mb-4">
+                                        <h6 class="fw-semibold mb-2">Key Features:</h6>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li><span class="text-primary me-2">•</span>Fully responsive design</li>
+                                            <li><span class="text-primary me-2">•</span>Smooth scrolling navigation</li>
+                                            <li><span class="text-primary me-2">•</span>Interactive animations</li>
+                                            <li><span class="text-primary me-2">•</span>Cross-browser compatibility</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-flex gap-2">
+                                        <a href="#" class="btn btn-primary btn-sm">
+                                            <i data-lucide="external-link" class="me-1"></i>Live Demo
+                                        </a>
+                                        <a href="#" class="btn btn-outline-secondary btn-sm">
+                                            <i data-lucide="github" class="me-1"></i>Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2: Landing Page -->
+                        <div class="col-lg-6 project-item" data-category="web">
+                            <div class="project-card bg-white rounded shadow-sm overflow-hidden h-100">
+                                <div class="project-image bg-light d-flex align-items-center justify-content-center">
+                                    <span class="text-muted fs-5">Project Preview</span>
+                                </div>
+                                <div class="p-4">
+                                    <h4 class="fw-bold mb-3">Modern Landing Page</h4>
+                                    <p class="text-muted mb-4">
+                                        An interactive landing page with form validation and responsive UI, featuring 
+                                        modern design principles and optimized user experience.
+                                    </p>
+                                    
+                                    <!-- Technologies -->
+                                    <div class="mb-4">
+                                        <span class="badge bg-primary me-2 mb-2">HTML5</span>
+                                        <span class="badge bg-primary me-2 mb-2">CSS3</span>
+                                        <span class="badge bg-primary me-2 mb-2">Bootstrap</span>
+                                        <span class="badge bg-primary me-2 mb-2">JavaScript</span>
+                                    </div>
+                                    
+                                    <!-- Features -->
+                                    <div class="mb-4">
+                                        <h6 class="fw-semibold mb-2">Key Features:</h6>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li><span class="text-primary me-2">•</span>Form validation</li>
+                                            <li><span class="text-primary me-2">•</span>Responsive layout</li>
+                                            <li><span class="text-primary me-2">•</span>Modern UI/UX</li>
+                                            <li><span class="text-primary me-2">•</span>Performance optimized</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-flex gap-2">
+                                        <a href="#" class="btn btn-primary btn-sm">
+                                            <i data-lucide="external-link" class="me-1"></i>Live Demo
+                                        </a>
+                                        <a href="#" class="btn btn-outline-secondary btn-sm">
+                                            <i data-lucide="github" class="me-1"></i>Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 3: Amazon Clone -->
+                        <div class="col-lg-6 project-item" data-category="clone">
+                            <div class="project-card bg-white rounded shadow-sm overflow-hidden h-100">
+                                <div class="project-image bg-light d-flex align-items-center justify-content-center">
+                                    <span class="text-muted fs-5">Project Preview</span>
+                                </div>
+                                <div class="p-4">
+                                    <h4 class="fw-bold mb-3">Amazon Clone</h4>
+                                    <p class="text-muted mb-4">
+                                        A front-end replica of Amazon's user interface, focusing on responsive design, 
+                                        modern layouts, and styling to practice advanced CSS and JavaScript skills.
+                                    </p>
+                                    
+                                    <!-- Technologies -->
+                                    <div class="mb-4">
+                                        <span class="badge bg-primary me-2 mb-2">HTML5</span>
+                                        <span class="badge bg-primary me-2 mb-2">CSS3</span>
+                                        <span class="badge bg-primary me-2 mb-2">JavaScript</span>
+                                        <span class="badge bg-primary me-2 mb-2">Bootstrap</span>
+                                    </div>
+                                    
+                                    <!-- Features -->
+                                    <div class="mb-4">
+                                        <h6 class="fw-semibold mb-2">Key Features:</h6>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li><span class="text-primary me-2">•</span>Product listing layout</li>
+                                            <li><span class="text-primary me-2">•</span>Shopping cart interface</li>
+                                            <li><span class="text-primary me-2">•</span>Responsive design</li>
+                                            <li><span class="text-primary me-2">•</span>Modern styling</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-flex gap-2">
+                                        <a href="#" class="btn btn-primary btn-sm">
+                                            <i data-lucide="external-link" class="me-1"></i>Live Demo
+                                        </a>
+                                        <a href="#" class="btn btn-outline-secondary btn-sm">
+                                            <i data-lucide="github" class="me-1"></i>Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 4: Spotify Clone -->
+                        <div class="col-lg-6 project-item" data-category="clone">
+                            <div class="project-card bg-white rounded shadow-sm overflow-hidden h-100">
+                                <div class="project-image bg-light d-flex align-items-center justify-content-center">
+                                    <span class="text-muted fs-5">Project Preview</span>
+                                </div>
+                                <div class="p-4">
+                                    <h4 class="fw-bold mb-3">Spotify Clone</h4>
+                                    <p class="text-muted mb-4">
+                                        A music streaming interface clone that replicates Spotify's modern UI, 
+                                        featuring playlist layouts and responsive design elements.
+                                    </p>
+                                    
+                                    <!-- Technologies -->
+                                    <div class="mb-4">
+                                        <span class="badge bg-primary me-2 mb-2">HTML5</span>
+                                        <span class="badge bg-primary me-2 mb-2">CSS3</span>
+                                        <span class="badge bg-primary me-2 mb-2">JavaScript</span>
+                                        <span class="badge bg-primary me-2 mb-2">Bootstrap</span>
+                                    </div>
+                                    
+                                    <!-- Features -->
+                                    <div class="mb-4">
+                                        <h6 class="fw-semibold mb-2">Key Features:</h6>
+                                        <ul class="list-unstyled small text-muted">
+                                            <li><span class="text-primary me-2">•</span>Music player interface</li>
+                                            <li><span class="text-primary me-2">•</span>Playlist management UI</li>
+                                            <li><span class="text-primary me-2">•</span>Responsive layout</li>
+                                            <li><span class="text-primary me-2">•</span>Modern aesthetics</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-flex gap-2">
+                                        <a href="#" class="btn btn-primary btn-sm">
+                                            <i data-lucide="external-link" class="me-1"></i>Live Demo
+                                        </a>
+                                        <a href="#" class="btn btn-outline-secondary btn-sm">
+                                            <i data-lucide="github" class="me-1"></i>Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Section Header -->
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold mb-3">Education & Certifications</h2>
+                        <div class="section-divider mx-auto mb-4"></div>
+                        <p class="lead text-muted">
+                            My academic journey and professional certifications in computer science and technology
+                        </p>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- Education Timeline -->
+                        <div class="col-lg-8">
+                            <h3 class="h4 fw-bold mb-4 d-flex align-items-center">
+                                <i data-lucide="graduation-cap" class="text-primary me-3"></i>
+                                Academic Background
+                            </h3>
+                            
+                            <!-- Education Item 1 -->
+                            <div class="education-item bg-white p-4 rounded shadow-sm mb-4">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 class="fw-bold mb-2">Bachelor of Computer Applications (BCA)</h5>
+                                        <p class="text-primary fw-semibold mb-1">IIMT Group of Colleges</p>
+                                        <p class="text-muted mb-2">
+                                            <i data-lucide="map-pin" class="me-1" style="width: 16px; height: 16px;"></i>
+                                            Delhi NCR
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4 text-md-end">
+                                        <div class="text-muted mb-2">
+                                            <i data-lucide="calendar" class="me-1" style="width: 16px; height: 16px;"></i>
+                                            2023 - 2026
+                                        </div>
+                                        <span class="badge bg-success">Current (4th Semester)</span>
+                                        <div class="text-primary fw-semibold mt-2">Grade: 62.5%</div>
+                                    </div>
+                                </div>
+                                <p class="text-muted mb-0 mt-3">
+                                    Specializing in Full-Stack Development with focus on MERN technologies and modern web development practices.
+                                </p>
+                            </div>
+
+                            <!-- Education Item 2 -->
+                            <div class="education-item bg-white p-4 rounded shadow-sm mb-4">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 class="fw-bold mb-2">Intermediate (Class 12)</h5>
+                                        <p class="text-primary fw-semibold mb-1">MM Memorial High School</p>
+                                    </div>
+                                    <div class="col-md-4 text-md-end">
+                                        <div class="text-muted mb-2">
+                                            <i data-lucide="calendar" class="me-1" style="width: 16px; height: 16px;"></i>
+                                            2022
+                                        </div>
+                                        <span class="badge bg-secondary">Completed</span>
+                                        <div class="text-primary fw-semibold mt-2">Grade: 63.2%</div>
+                                    </div>
+                                </div>
+                                <p class="text-muted mb-0 mt-3">
+                                    Completed higher secondary education with good academic performance.
+                                </p>
+                            </div>
+
+                            <!-- Education Item 3 -->
+                            <div class="education-item bg-white p-4 rounded shadow-sm">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 class="fw-bold mb-2">High School (Class 10)</h5>
+                                        <p class="text-primary fw-semibold mb-1">DAV High School</p>
+                                    </div>
+                                    <div class="col-md-4 text-md-end">
+                                        <div class="text-muted mb-2">
+                                            <i data-lucide="calendar" class="me-1" style="width: 16px; height: 16px;"></i>
+                                            2020
+                                        </div>
+                                        <span class="badge bg-secondary">Completed</span>
+                                    </div>
+                                </div>
+                                <p class="text-muted mb-0 mt-3">
+                                    Completed secondary education with strong foundation in core subjects.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Certifications -->
+                        <div class="col-lg-4">
+                            <h3 class="h4 fw-bold mb-4 d-flex align-items-center">
+                                <i data-lucide="award" class="text-primary me-3"></i>
+                                Certifications
+                            </h3>
+                            
+                            <div class="certification-item bg-white p-4 rounded shadow-sm mb-4">
+                                <h5 class="fw-bold mb-2">Advanced Diploma in Computer Applications (ADCA)</h5>
+                                <p class="text-primary fw-semibold mb-1">Institute of Computer Studies</p>
+                                <div class="text-muted mb-3">
+                                    <i data-lucide="calendar" class="me-1" style="width: 16px; height: 16px;"></i>
+                                    2021-2022
+                                </div>
+                                
+                                <p class="text-muted small">
+                                    Comprehensive course covering computer applications, programming fundamentals, 
+                                    and office productivity tools.
+                                </p>
+                            </div>
+
+                            <div class="certification-item bg-white p-4 rounded shadow-sm mb-4">
+                                <h5 class="fw-bold mb-2">Generative AI Mastermind Certificate</h5>
+                                <p class="text-primary fw-semibold mb-1">Outskill</p>
+                                <div class="text-muted mb-3">
+                                    <i data-lucide="calendar" class="me-1" style="width: 16px; height: 16px;"></i>
+                                    2025
+                                </div>
+                                
+                                <p class="text-muted small">
+                                    Completed the Outskill Generative AI Mastermind Certificate, gaining hands-on experience in AI-driven tools, applications, and creative problem-solving, enhancing my ability to integrate AI solutions into real-world projects.
+                                </p>
+                            </div>
+
+                            <!-- Academic Focus Card -->
+                            <div class="bg-primary bg-opacity-10 p-4 rounded">
+                                <h5 class="fw-bold mb-3">Academic Focus</h5>
+                                <ul class="list-unstyled text-muted small">
+                                    <li class="d-flex align-items-start mb-2">
+                                        <span class="text-primary me-2">•</span>
+                                        Full-Stack Web Development
+                                    </li>
+                                    <li class="d-flex align-items-start mb-2">
+                                        <span class="text-primary me-2">•</span>
+                                        MERN Stack Technologies
+                                    </li>
+                                    <li class="d-flex align-items-start mb-2">
+                                        <span class="text-primary me-2">•</span>
+                                        Database Management
+                                    </li>
+                                    <li class="d-flex align-items-start">
+                                        <span class="text-primary me-2">•</span>
+                                        Modern Web Standards
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Section Header -->
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold mb-3">Get In Touch</h2>
+                        <div class="section-divider mx-auto mb-4"></div>
+                        <p class="lead text-muted">
+                            I'm always open to discussing new opportunities, collaborations, or just having a chat about technology
+                        </p>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- Contact Information -->
+                        <div class="col-lg-6">
+                            <h3 class="h4 fw-bold mb-4">Let's Connect</h3>
+                            
+                            <!-- Contact Info Cards -->
+                            <div class="contact-info mb-4">
+                                <a href="mailto:khalid.jamil@example.com" class="contact-item d-flex align-items-center p-3 rounded mb-3 text-decoration-none">
+                                    <div class="contact-icon text-primary me-3">
+                                        <i data-lucide="mail"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-semibold mb-1 text-dark">Email</h6>
+                                        <p class="text-muted mb-0">khalid.jamil@example.com</p>
+                                    </div>
+                                </a>
+
+                                <a href="tel:+91XXXXXXXXX" class="contact-item d-flex align-items-center p-3 rounded mb-3 text-decoration-none">
+                                    <div class="contact-icon text-primary me-3">
+                                        <i data-lucide="phone"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-semibold mb-1 text-dark">Phone</h6>
+                                        <p class="text-muted mb-0">+91 XXXXX XXXXX</p>
+                                    </div>
+                                </a>
+
+                                <div class="contact-item d-flex align-items-center p-3 rounded mb-3">
+                                    <div class="contact-icon text-primary me-3">
+                                        <i data-lucide="map-pin"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-semibold mb-1">Location</h6>
+                                        <p class="text-muted mb-0">Delhi NCR, India</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Social Links -->
+                            <div class="mb-4">
+                                <h5 class="fw-semibold mb-3">Connect on Social Media</h5>
+                                <div class="d-flex gap-3">
+                                    <a href="#" class="social-link-footer">
+                                        <i data-lucide="github"></i>
+                                    </a>
+                                    <a href="#" class="social-link-footer">
+                                        <i data-lucide="linkedin"></i>
+                                    </a>
+                                    <a href="mailto:khalid.jamil@example.com" class="social-link-footer">
+                                        <i data-lucide="external-link"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Available For -->
+                            <div class="availability-card p-4 rounded">
+                                <h5 class="fw-semibold mb-3">Available For</h5>
+                                <ul class="list-unstyled text-muted">
+                                    <li class="d-flex align-items-start mb-2">
+                                        <span class="text-primary me-2">•</span>
+                                        Internship opportunities
+                                    </li>
+                                    <li class="d-flex align-items-start mb-2">
+                                        <span class="text-primary me-2">•</span>
+                                        Freelance projects
+                                    </li>
+                                    <li class="d-flex align-items-start mb-2">
+                                        <span class="text-primary me-2">•</span>
+                                        Collaboration on open source
+                                    </li>
+                                    <li class="d-flex align-items-start">
+                                        <span class="text-primary me-2">•</span>
+                                        Tech discussions and mentorship
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <div class="col-lg-6">
+                            <h3 class="h4 fw-bold mb-4">Send a Message</h3>
+                            
+                            <form id="contactForm" class="contact-form">
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label for="name" class="form-label fw-medium">Your Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" required placeholder="Enter your name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label fw-medium">Email Address</label>
+                                        <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label fw-medium">Subject</label>
+                                    <input type="text" class="form-control" id="subject" name="subject" required placeholder="What's this about?">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="message" class="form-label fw-medium">Message</label>
+                                    <textarea class="form-control" id="message" name="message" rows="6" required placeholder="Tell me about your project or inquiry..."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center">
+                                    <i data-lucide="send" class="me-2"></i>
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <!-- Main Footer Content -->
+            <div class="row g-4 mb-4">
+                <!-- About Section -->
+                <div class="col-lg-4">
+                    <h4 class="fw-bold mb-3">Khalid Jamil</h4>
+                    <p class="text-light opacity-75 mb-4">
+                        BCA student and aspiring Full-Stack Developer passionate about creating 
+                        innovative web solutions. Currently learning MERN stack and building 
+                        projects to enhance my skills.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="footer-social-link">
+                            <i data-lucide="github"></i>
+                        </a>
+                        <a href="#" class="footer-social-link">
+                            <i data-lucide="linkedin"></i>
+                        </a>
+                        <a href="mailto:khalid.jamil@example.com" class="footer-social-link">
+                            <i data-lucide="mail"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="fw-semibold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" class="footer-link">Home</a></li>
+                        <li class="mb-2"><a href="#about" class="footer-link">About</a></li>
+                        <li class="mb-2"><a href="#skills" class="footer-link">Skills</a></li>
+                        <li class="mb-2"><a href="#projects" class="footer-link">Projects</a></li>
+                        <li class="mb-2"><a href="#education" class="footer-link">Education</a></li>
+                        <li class="mb-2"><a href="#contact" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="col-lg-3 col-md-4">
+                    <h5 class="fw-semibold mb-3">Services</h5>
+                    <ul class="list-unstyled text-light opacity-75">
+                        <li class="mb-2">Web Development</li>
+                        <li class="mb-2">Frontend Development</li>
+                        <li class="mb-2">MERN Stack Development</li>
+                        <li class="mb-2">Responsive Design</li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-4">
+                    <h5 class="fw-semibold mb-3">Get In Touch</h5>
+                    <div class="text-light opacity-75">
+                        <p class="mb-2">
+                            <strong>Email:</strong><br>
+                            khalidjamil@example.com
+                        </p>
+                        <p class="mb-2">
+                            <strong>Phone:</strong><br>
+                            +91 XXXXX XXXXX
+                        </p>
+                        <p class="mb-0">
+                            <strong>Location:</strong><br>
+                            Delhi NCR, India
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <hr class="border-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-light opacity-75 mb-0 d-flex align-items-center">
+                        © 2025 Khalid Jamil. Made with 
+                        <i data-lucide="heart" class="mx-1 text-danger" style="width: 16px; height: 16px; fill: currentColor;"></i>
+                        and lots of ☕
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end mt-2 mt-md-0">
+                    <small class="text-light opacity-50">
+                        Built with HTML5, CSS3, Bootstrap & JavaScript • Deployed on Netlify
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
     
-    const animationObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-            }
-        });
-    }, observerOptions);
-    
-    animatedElements.forEach(element => {
-        animationObserver.observe(element);
-    });
-}
-
-// Utility functions
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Handle navbar scroll effect
-window.addEventListener('scroll', debounce(() => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
-    }
-}, 10));
-
-// Download resume functionality (placeholder)
-document.addEventListener('click', function(e) {
-    if (e.target.closest('a[href="#contact"]') && e.target.textContent.includes('Download Resume')) {
-        e.preventDefault();
-        // Here you would implement actual resume download
-        alert('Resume download feature will be implemented with actual resume file.');
-    }
-});
-
-// Add loading state for external links
-document.querySelectorAll('a[href^="http"]').forEach(link => {
-    link.addEventListener('click', function() {
-        const originalText = this.innerHTML;
-        this.innerHTML = '<i data-lucide="loader" class="me-2"></i>Loading...';
-        
-        // Reset after 3 seconds (in case the link doesn't navigate away)
-        setTimeout(() => {
-            this.innerHTML = originalText;
-            lucide.createIcons(); // Reinitialize icons
-        }, 3000);
-    });
-});
-
-// Console welcome message
-console.log(`
-%c👋 Hi there! 
-%cWelcome to Khalid Jamil's Portfolio
-%cBuilt with HTML5, CSS3, Bootstrap & JavaScript
-%cFeel free to explore the code!
-`, 
-'font-size: 16px; font-weight: bold; color: #3b82f6;',
-'font-size: 14px; color: #1e293b;',
-'font-size: 12px; color: #64748b;',
-'font-size: 12px; color: #64748b; font-style: italic;'
-);
+    <!-- Initialize Lucide Icons -->
+    <script>lucide.createIcons();</script>
+</body>
+</html>
