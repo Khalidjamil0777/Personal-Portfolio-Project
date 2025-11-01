@@ -6,7 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeContactForm();
     initializeSkillBars();
     initializeScrollAnimations();
-    infiniteTypeWriter('Khalid Jamil', 'typingName');
+
+    // New multi-text typing effect
+    multiTypeWriter(
+        ['Khalid Jamil', 'Web Developer', 'Designer', 'Programmer'], 
+        'typingName',
+        100,  // typing speed
+        1500  // pause duration
+    );
 });
 
 // Navigation functionality
@@ -153,7 +160,6 @@ function isValidEmail(email) {
 
 // Show form success message
 function showFormSuccess() {
-    // Create success message
     const successMessage = document.createElement('div');
     successMessage.className = 'alert alert-success alert-dismissible fade show mt-3';
     successMessage.innerHTML = `
@@ -161,11 +167,9 @@ function showFormSuccess() {
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
     
-    // Insert after form
     const form = document.getElementById('contactForm');
     form.parentNode.insertBefore(successMessage, form.nextSibling);
     
-    // Auto-remove after 5 seconds
     setTimeout(() => {
         if (successMessage.parentNode) {
             successMessage.remove();
@@ -175,11 +179,9 @@ function showFormSuccess() {
 
 // Show form error message
 function showFormError(message) {
-    // Remove existing error messages
     const existingErrors = document.querySelectorAll('.alert-danger');
     existingErrors.forEach(error => error.remove());
     
-    // Create error message
     const errorMessage = document.createElement('div');
     errorMessage.className = 'alert alert-danger alert-dismissible fade show mt-3';
     errorMessage.innerHTML = `
@@ -187,11 +189,9 @@ function showFormError(message) {
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
     
-    // Insert after form
     const form = document.getElementById('contactForm');
     form.parentNode.insertBefore(errorMessage, form.nextSibling);
     
-    // Auto-remove after 5 seconds
     setTimeout(() => {
         if (errorMessage.parentNode) {
             errorMessage.remove();
@@ -214,7 +214,6 @@ function initializeSkillBars() {
                 const progressBar = entry.target;
                 const width = progressBar.style.width;
                 
-                // Reset width and animate
                 progressBar.style.width = '0%';
                 setTimeout(() => {
                     progressBar.style.width = width;
@@ -250,64 +249,40 @@ function initializeScrollAnimations() {
     });
 }
 
-// Typing effect functionality
-function infiniteTypeWriter(text, elementId, speed = 120, pause = 1500) {
+// ✨ New Multi-Text Typing Effect ✨
+function multiTypeWriter(texts, elementId, speed = 120, pause = 1200) {
     const element = document.getElementById(elementId);
-    let i = 0;
-
-    function type() {
-        if (i <= text.length) {
-            element.textContent = text.substring(0, i);
-            i++;
-            setTimeout(type, speed);
-        } else {
-            // Optionally, you can loop or just stop here
-            setTimeout(() => {
-                // Uncomment below to loop the animation
-                // i = 0;
-                // type();
-            }, pause);
-        }
-    }
-    type();
-}
-
-function infiniteSmoothTypeWriter(text, elementId, speed = 120, pause = 1200) {
-    const element = document.getElementById(elementId);
-    let i = 0;
+    let textIndex = 0;
+    let charIndex = 0;
     let isDeleting = false;
 
     function type() {
+        const currentText = texts[textIndex];
+        const displayedText = currentText.substring(0, charIndex);
+        element.textContent = displayedText;
+
         if (!isDeleting) {
-            element.textContent = text.substring(0, i + 1);
-            i++;
-            if (i === text.length) {
-                setTimeout(() => {
-                    isDeleting = true;
-                    type();
-                }, pause);
-            } else {
+            if (charIndex < currentText.length) {
+                charIndex++;
                 setTimeout(type, speed);
+            } else {
+                isDeleting = true;
+                setTimeout(type, pause);
             }
         } else {
-            element.textContent = text.substring(0, i - 1);
-            i--;
-            if (i === 0) {
-                setTimeout(() => {
-                    isDeleting = false;
-                    type();
-                }, pause);
+            if (charIndex > 0) {
+                charIndex--;
+                setTimeout(type, speed / 2);
             } else {
-                setTimeout(type, speed);
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(type, 500);
             }
         }
     }
+
     type();
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    infiniteSmoothTypeWriter('Khalid Jamil', 'typingName', 120, 1200);
-});
 
 // Utility functions
 function debounce(func, wait) {
@@ -338,7 +313,6 @@ window.addEventListener('scroll', debounce(() => {
 document.addEventListener('click', function(e) {
     if (e.target.closest('a[href="#contact"]') && e.target.textContent.includes('Download Resume')) {
         e.preventDefault();
-        // Here you would implement actual resume download
         alert('Resume download feature will be implemented with actual resume file.');
     }
 });
@@ -349,23 +323,9 @@ document.querySelectorAll('a[href^="http"]').forEach(link => {
         const originalText = this.innerHTML;
         this.innerHTML = '<i data-lucide="loader" class="me-2"></i>Loading...';
         
-        // Reset after 3 seconds (in case the link doesn't navigate away)
         setTimeout(() => {
             this.innerHTML = originalText;
             lucide.createIcons(); // Reinitialize icons
         }, 3000);
     });
 });
-
-// Console welcome message
-console.log(`
-%c👋 Hi there! 
-%cWelcome to Khalid Jamil's Portfolio
-%cBuilt with HTML5, CSS3, Bootstrap & JavaScript
-%cFeel free to explore the code!
-`, 
-'font-size: 16px; font-weight: bold; color: #3b82f6;',
-'font-size: 14px; color: #1e293b;',
-'font-size: 12px; color: #64748b;',
-'font-size: 12px; color: #64748b; font-style: italic;'
-);
